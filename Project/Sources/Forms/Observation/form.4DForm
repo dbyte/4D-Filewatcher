@@ -1,0 +1,103 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 500,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 2000,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [],
+	"windowTitle": "File Watch",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"events": {
+					"type": "listbox",
+					"left": 20,
+					"top": 50,
+					"width": 780,
+					"height": 420,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.events",
+					"memorizeValue": false,
+					"showFooters": false,
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"columns": [
+						{
+							"header": {
+								"text": "Event kind",
+								"name": "kind",
+								"textAlign": "left",
+								"horizontalPadding": 0
+							},
+							"name": "Spalte1",
+							"footer": {
+								"name": "Fußteil1"
+							},
+							"dataSource": "This:C1470.kind",
+							"width": 130,
+							"minWidth": 130,
+							"maxWidth": 500
+						},
+						{
+							"header": {
+								"name": "timestamp",
+								"text": "Timestamp",
+								"textAlign": "left"
+							},
+							"name": "Spalte2",
+							"footer": {
+								"name": "Fußteil2"
+							},
+							"dataSource": "This:C1470.timestamp",
+							"width": 130,
+							"minWidth": 130,
+							"maxWidth": 500
+						},
+						{
+							"header": {
+								"name": "filesystemItem",
+								"text": "Filesystem item",
+								"textAlign": "left"
+							},
+							"name": "Spalte3",
+							"footer": {
+								"name": "Fußteil3"
+							},
+							"dataSource": "This:C1470.filesystemItem",
+							"width": 450,
+							"maxWidth": 2000,
+							"minWidth": 200
+						}
+					]
+				}
+			}
+		}
+	],
+	"memorizeGeometry": true,
+	"geometryStamp": 23,
+	"colorScheme": "dark",
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}

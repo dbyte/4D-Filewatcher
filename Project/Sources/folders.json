@@ -1,0 +1,18 @@
+{
+	"core": {
+		"methods": [
+			"runWatcher"
+		],
+		"classes": [
+			"Singletons",
+			"Watcher",
+			"WatcherConfig"
+		]
+	},
+	"forms": {
+		"forms": [
+			"Observation"
+		]
+	},
+	"trash": {}
+}
