@@ -1,5 +1,6 @@
 /* cs.ObserverViewController
 
+View controller for view "Observer".
 ----------------------------------------------------
 */
 
@@ -12,49 +13,29 @@ Class constructor($config : cs:C1710.WatcherConfig)
 	
 Function openView()
 	var $winRef : Integer
+	var $watcher : cs:C1710.Watcher
+	$watcher:=This:C1470._watcher  // to get some code completion
 	
 	$winRef:=Open form window:C675(String:C10(This:C1470._FORM_NAME); Plain form window:K39:10)
 	SHOW WINDOW:C435($winRef)
 	DIALOG:C40(This:C1470._FORM_NAME; New object:C1471("controller"; This:C1470))
 	
-	This:C1470.stopWatcher()
+	$watcher.terminate()
 	
 	
 Function startWatcher() : Boolean
-	If (This:C1470.isWatcherRunning())
-		// Terminate worker thread and (implicitly) its SystemWorker child.
-		This:C1470.stopWatcher()
-		
-	Else 
-/*
-Launch worker thread. 
-At the end we have one new thread which spawns a new 4D.Systemworker
-on the same thread but async.
-		
-Warning! We must use a predefined $watcher variable here, being
-captured by Formula().
-Formula(This._watcher.run()) will result in a RTE!
-*/
-		var $watcher : cs:C1710.Watcher
-		$watcher:=This:C1470._watcher
-		CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($watcher.run()))
-		While (Not:C34(This:C1470.isWatcherRunning()))
-			// Block and wait until process ready.
-		End while 
-	End if 
-	
-	return This:C1470.isWatcherRunning()
-	
-	
-Function stopWatcher()
 	var $watcher : cs:C1710.Watcher
 	$watcher:=This:C1470._watcher  // to get some code completion
 	
-	$watcher.terminate()
-	KILL WORKER:C1390(This:C1470._WORKER_ID)
-	While (This:C1470.isWatcherRunning())
-		// Block and wait for termination.
-	End while 
+	If ($watcher.isRunning())
+		// Do not start a 2nd worker. Instead, terminate worker thread 
+		// and (implicitly) its SystemWorker child.
+		$watcher.terminate()
+	Else 
+		$watcher.run()
+	End if 
+	
+	return $watcher.isRunning()
 	
 	
 Function clearAllEvents()
@@ -81,12 +62,6 @@ Function refreshEventsListbox() : Collection
 		$events.push("")
 		$events.pop()
 	End use 
-	
-	
-Function isWatcherRunning() : Boolean
-	var $state : Integer
-	$state:=Process state:C330(Process number:C372(This:C1470._WORKER_ID))
-	return (($state=Executing:K13:4) || ($state=Waiting for user event:K13:9))
 	
 	
 Function get events() : Collection
