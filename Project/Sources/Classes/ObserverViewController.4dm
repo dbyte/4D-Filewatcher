@@ -3,10 +3,11 @@
 ----------------------------------------------------
 */
 
-Class constructor($watcher : cs:C1710.Watcher)
+Class constructor($config : cs:C1710.WatcherConfig)
 	This:C1470._FORM_NAME:="ObserverView"
 	This:C1470._WORKER_ID:="filewatcher"
-	This:C1470._watcher:=$watcher
+	This:C1470._config:=OB Copy:C1225($config; ck shared:K85:29)
+	This:C1470._watcher:=cs:C1710.Watcher.new(This:C1470._config)
 	
 	
 Function openView()
@@ -37,6 +38,9 @@ Formula(This._watcher.run()) will result in a RTE!
 		var $watcher : cs:C1710.Watcher
 		$watcher:=This:C1470._watcher
 		CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($watcher.run()))
+		While (Not:C34(This:C1470.isWatcherRunning()))
+			// Block and wait until process ready.
+		End while 
 	End if 
 	
 	return This:C1470.isWatcherRunning()
@@ -46,7 +50,7 @@ Function stopWatcher()
 	var $watcher : cs:C1710.Watcher
 	$watcher:=This:C1470._watcher  // to get some code completion
 	
-	$watcher.terminateBackend()
+	$watcher.terminate()
 	KILL WORKER:C1390(This:C1470._WORKER_ID)
 	While (This:C1470.isWatcherRunning())
 		// Block and wait for termination.
@@ -54,8 +58,11 @@ Function stopWatcher()
 	
 	
 Function clearAllEvents()
+	var $config : cs:C1710.WatcherConfig
+	$config:=This:C1470._config
+	
 	var $events : Collection
-	$events:=This:C1470._shared().getConfig().events
+	$events:=$config.events
 	Use ($events)
 		$events.clear()
 	End use 
@@ -65,8 +72,11 @@ Function refreshEventsListbox() : Collection
 	// Refresh listbox collection nearly as suggested at
 	// https://discuss.4d.com/t/redrawing-a-collection-in-a-listbox/14455/2
 	// This is a workaround.
+	var $config : cs:C1710.WatcherConfig
+	$config:=This:C1470._config
+	
 	var $events : Collection
-	$events:=This:C1470._shared().getConfig().events
+	$events:=$config.events
 	Use ($events)
 		$events.push("")
 		$events.pop()
@@ -80,14 +90,13 @@ Function isWatcherRunning() : Boolean
 	
 	
 Function get events() : Collection
-	return This:C1470._shared().getConfig().events
+	var $config : cs:C1710.WatcherConfig
+	$config:=This:C1470._config
+	return $config.events
 	
 	
 Function get watchedDirPlatformPath() : Text
-	return This:C1470._shared().getConfig().getWatchedDir().path
-	
-	
-Function _shared() : cs:C1710.Shared
-	// Get some code completion in callers.
-	return cs:C1710.Shared.new()
+	var $config : cs:C1710.WatcherConfig
+	$config:=This:C1470._config
+	return $config.getWatchedDir().path
 	

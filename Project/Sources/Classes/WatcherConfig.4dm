@@ -11,7 +11,6 @@ Class constructor()
 	This:C1470.dataError:=""
 	This:C1470.encoding:="UTF-8"
 	
-	// Property must be shared for use in other processes!
 	This:C1470.events:=New collection:C1472()
 	
 	// Enriched settings
@@ -29,7 +28,6 @@ Function onResponse($worker : 4D:C1709.SystemWorker)
 Function onData($worker : 4D:C1709.SystemWorker; $info : Object)
 	This:C1470._collect($info.data)
 	This:C1470._printNewLine("onData called: "+$info.data)
-	
 	
 Function onDataError($worker : 4D:C1709.SystemWorker; $info : Object)
 	This:C1470._printNewLine("onDataError called: "+$info.data)

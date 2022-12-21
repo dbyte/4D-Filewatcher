@@ -103,7 +103,8 @@
 					"action": "",
 					"sizingX": "fixed",
 					"sizingY": "move",
-					"method": "ObjectMethods/btn.startstop.4dm"
+					"method": "ObjectMethods/btn.startstop.4dm",
+					"focusable": false
 				},
 				"numEvents": {
 					"type": "input",
@@ -150,7 +151,8 @@
 					"action": "",
 					"sizingX": "fixed",
 					"sizingY": "move",
-					"method": "ObjectMethods/btn.clearList.4dm"
+					"method": "ObjectMethods/btn.clearList.4dm",
+					"focusable": false
 				},
 				"Text1": {
 					"type": "text",
@@ -187,7 +189,7 @@
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 194,
+	"geometryStamp": 204,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",

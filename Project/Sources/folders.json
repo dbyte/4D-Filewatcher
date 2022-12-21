@@ -5,7 +5,6 @@
 		],
 		"classes": [
 			"ObserverViewController",
-			"Shared",
 			"Watcher",
 			"WatcherConfig"
 		]
