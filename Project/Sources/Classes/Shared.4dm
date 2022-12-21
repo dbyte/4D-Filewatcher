@@ -1,6 +1,6 @@
-/* PM: Singletons
+/* cs.Shared
 
-xxxxx
+Responsible for shared objects/instances.
 ----------------------------------------------------
 */
 
@@ -17,7 +17,7 @@ Function _getRootObject() : Object
 	return Storage:C1525._filewatcher
 	
 	
-Function getSharedConfig() : cs:C1710.WatcherConfig
+Function getConfig() : cs:C1710.WatcherConfig
 	var $root : Object
 	$root:=This:C1470._getRootObject()
 	
@@ -44,7 +44,7 @@ Function getSharedConfig() : cs:C1710.WatcherConfig
 	return $root.config
 	
 	
-Function getSharedWatcher() : cs:C1710.Watcher
+Function getWatcher() : cs:C1710.Watcher
 	var $root : Object
 	$root:=This:C1470._getRootObject()
 	
@@ -54,7 +54,7 @@ Function getSharedWatcher() : cs:C1710.Watcher
 			
 			// Warning: Injecting $config as a shared instance at construction-time
 			// does not work as of 4Dv19.R6HF2.283927 (but no RTE is thrown):
-			// $root.watcher:=OB Copy(cs.Watcher.new(This.getSharedConfig()); ck shared; $root)
+			// $root.watcher:=OB Copy(cs.Watcher.new(This.getConfig()); ck shared; $root)
 		End if 
 	End use 
 	return $root.watcher

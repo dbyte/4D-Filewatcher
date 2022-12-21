@@ -1,17 +1,18 @@
 {
 	"core": {
 		"methods": [
-			"runWatcher"
+			"launcher"
 		],
 		"classes": [
-			"Singletons",
+			"ObserverViewController",
+			"Shared",
 			"Watcher",
 			"WatcherConfig"
 		]
 	},
 	"forms": {
 		"forms": [
-			"Observation"
+			"ObserverView"
 		]
 	},
 	"trash": {}

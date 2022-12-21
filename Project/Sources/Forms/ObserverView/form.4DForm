@@ -26,18 +26,20 @@
 				"events": {
 					"type": "listbox",
 					"left": 20,
-					"top": 50,
+					"top": 10,
 					"width": 900,
 					"height": 500,
 					"events": [],
 					"listboxType": "collection",
-					"dataSource": "Form:C1466.events",
+					"dataSource": "Form:C1466.controller.events",
 					"memorizeValue": false,
 					"showFooters": false,
 					"sizingX": "grow",
 					"sizingY": "grow",
 					"method": "",
 					"fontSize": 11,
+					"borderStyle": "system",
+					"hideFocusRing": true,
 					"columns": [
 						{
 							"header": {
@@ -86,12 +88,74 @@
 							"minWidth": 200
 						}
 					]
+				},
+				"btn.startstop": {
+					"type": "button",
+					"text": "Start",
+					"top": 540,
+					"left": 20,
+					"width": 123,
+					"height": 25,
+					"events": [
+						"onClick"
+					],
+					"borderStyle": "none",
+					"action": "",
+					"sizingX": "fixed",
+					"sizingY": "move",
+					"method": "ObjectMethods/btn.startstop.4dm"
+				},
+				"Number of events": {
+					"type": "input",
+					"left": 432,
+					"top": 545,
+					"width": 115,
+					"height": 17,
+					"dataSource": "Form:C1466.controller.events.length",
+					"dataSourceTypeHint": "integer",
+					"enterable": false,
+					"focusable": false,
+					"contextMenu": "none",
+					"multiline": "no",
+					"placeholder": "0",
+					"textAlign": "center",
+					"sizingX": "fixed",
+					"sizingY": "move",
+					"fontSize": 11,
+					"memorizeValue": true
+				},
+				"Text": {
+					"type": "text",
+					"text": "Number of events",
+					"top": 525,
+					"left": 432,
+					"width": 115,
+					"height": 16,
+					"sizingY": "move",
+					"fontSize": 11,
+					"textAlign": "center"
+				},
+				"btn.clearList": {
+					"type": "button",
+					"text": "Clear",
+					"top": 540,
+					"left": 155,
+					"width": 123,
+					"height": 25,
+					"events": [
+						"onClick"
+					],
+					"borderStyle": "none",
+					"action": "",
+					"sizingX": "fixed",
+					"sizingY": "move",
+					"method": "ObjectMethods/btn.clearList.4dm"
 				}
 			}
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 33,
+	"geometryStamp": 125,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",

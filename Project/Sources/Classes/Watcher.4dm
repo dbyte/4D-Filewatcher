@@ -1,6 +1,6 @@
 /* cs.Watcher
 ----------------------------------------------------------------
-xxxxx
+Maintains 4D.SystemWorker which itself calls a OS-native file watcher backend.
 ---------------------------------------------------------------- */
 
 Class constructor()
@@ -9,7 +9,7 @@ Class constructor()
 	// Class constructor($config : cs.WatcherConfig)
 	// This._config:=Null  //$config
 	
-	This:C1470._worker:=Null:C1517
+	This:C1470._sysWorker:=Null:C1517
 	
 	
 Function run()
@@ -22,14 +22,28 @@ Function run()
 	
 	var $config : cs:C1710.WatcherConfig
 	// Cast for code completion and shorten calls
-	$config:=cs:C1710.Singletons.new().getSharedConfig()
+	$config:=cs:C1710.Shared.new().getConfig()
 	
 	Use (This:C1470)
-		This:C1470._worker:=OB Copy:C1225(4D:C1709.SystemWorker.new($config.getBackend().path+" "+$config.getWatchedDir().path; $config); ck shared:K85:29)
+		This:C1470._sysWorker:=OB Copy:C1225(4D:C1709.SystemWorker.new($config.getBackend().path+" "+$config.getWatchedDir().path; $config); ck shared:K85:29)
 	End use 
-	This:C1470.getWorker().closeInput()
+	// This._getSysWorker().closeInput()
 	
 	
-Function getWorker() : 4D:C1709.SystemWorker
-	return This:C1470._worker
+Function terminateBackend()
+	var $sysWorker : 4D:C1709.SystemWorker
+	$sysWorker:=This:C1470._getSysWorker()
+	
+	If ($sysWorker#Null:C1517)
+		$sysWorker.terminate()
+		$sysWorker.wait(2)
+		Use (This:C1470)
+			This:C1470._sysWorker:=Null:C1517
+		End use 
+	End if 
+	
+	
+Function _getSysWorker() : 4D:C1709.SystemWorker
+	// Get some code completion in callers.
+	return This:C1470._sysWorker
 	
