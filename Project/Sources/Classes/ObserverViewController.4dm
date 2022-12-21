@@ -76,6 +76,10 @@ Function get events() : Collection
 	return This:C1470._shared().getConfig().events
 	
 	
+Function get watchedDirPlatformPath() : Text
+	return This:C1470._shared().getConfig().getWatchedDir().path
+	
+	
 Function _shared() : cs:C1710.Shared
 	return cs:C1710.Shared.new()
 	

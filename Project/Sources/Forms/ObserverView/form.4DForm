@@ -26,7 +26,7 @@
 				"events": {
 					"type": "listbox",
 					"left": 20,
-					"top": 10,
+					"top": 60,
 					"width": 900,
 					"height": 500,
 					"events": [],
@@ -92,7 +92,7 @@
 				"btn.startstop": {
 					"type": "button",
 					"text": "Start",
-					"top": 540,
+					"top": 590,
 					"left": 20,
 					"width": 123,
 					"height": 25,
@@ -105,10 +105,10 @@
 					"sizingY": "move",
 					"method": "ObjectMethods/btn.startstop.4dm"
 				},
-				"Number of events": {
+				"numEvents": {
 					"type": "input",
-					"left": 432,
-					"top": 545,
+					"left": 430,
+					"top": 30,
 					"width": 115,
 					"height": 17,
 					"dataSource": "Form:C1466.controller.events.length",
@@ -119,26 +119,27 @@
 					"multiline": "no",
 					"placeholder": "0",
 					"textAlign": "center",
-					"sizingX": "fixed",
-					"sizingY": "move",
+					"sizingX": "move",
+					"sizingY": "fixed",
 					"fontSize": 11,
 					"memorizeValue": true
 				},
 				"Text": {
 					"type": "text",
 					"text": "Number of events",
-					"top": 525,
-					"left": 432,
+					"top": 10,
+					"left": 430,
 					"width": 115,
 					"height": 16,
-					"sizingY": "move",
+					"sizingY": "fixed",
 					"fontSize": 11,
-					"textAlign": "center"
+					"textAlign": "center",
+					"sizingX": "move"
 				},
 				"btn.clearList": {
 					"type": "button",
 					"text": "Clear",
-					"top": 540,
+					"top": 590,
 					"left": 155,
 					"width": 123,
 					"height": 25,
@@ -150,12 +151,43 @@
 					"sizingX": "fixed",
 					"sizingY": "move",
 					"method": "ObjectMethods/btn.clearList.4dm"
+				},
+				"Text1": {
+					"type": "text",
+					"text": "Watched directory",
+					"top": 10,
+					"left": 20,
+					"width": 360,
+					"height": 16,
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"textAlign": "left",
+					"sizingX": "grow"
+				},
+				"watchedDir": {
+					"type": "input",
+					"left": 20,
+					"top": 30,
+					"width": 400,
+					"height": 17,
+					"dataSource": "Form:C1466.controller.watchedDirPlatformPath",
+					"dataSourceTypeHint": "integer",
+					"enterable": true,
+					"focusable": false,
+					"contextMenu": "none",
+					"multiline": "no",
+					"placeholder": "Path",
+					"textAlign": "left",
+					"sizingX": "grow",
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"memorizeValue": true
 				}
 			}
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 125,
+	"geometryStamp": 194,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",
