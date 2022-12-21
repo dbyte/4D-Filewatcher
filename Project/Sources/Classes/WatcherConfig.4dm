@@ -60,12 +60,15 @@ Function _collect($message : Text)
 	var $events : Collection
 	$events:=This:C1470.events
 	
+	var $parts : Collection
+	$parts:=Split string:C1554($message; Char:C90(9); sk ignore empty strings:K86:1+sk trim spaces:K86:2)
+	
 	var $event : Object
 	$event:=New object:C1471()
 	
-	$event.kind:="ToDo"
-	$event.timestamp:="2023-12-20-todo"
-	$event.filesystemItem:=$message
+	$event.timestamp:=$parts[0]
+	$event.kind:=$parts[1]
+	$event.filesystemItem:=$parts[2]
 	
 	$events.push(OB Copy:C1225($event; ck shared:K85:29))
 	

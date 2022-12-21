@@ -6,12 +6,15 @@
 	"windowSizingX": "variable",
 	"windowSizingY": "variable",
 	"windowMinWidth": 500,
-	"windowMinHeight": 0,
+	"windowMinHeight": 300,
 	"windowMaxWidth": 2000,
-	"windowMaxHeight": 32767,
+	"windowMaxHeight": 2000,
 	"rightMargin": 20,
 	"bottomMargin": 20,
-	"events": [],
+	"events": [
+		"onLoad",
+		"onTimer"
+	],
 	"windowTitle": "File Watch",
 	"destination": "detailScreen",
 	"pages": [
@@ -24,24 +27,21 @@
 					"type": "listbox",
 					"left": 20,
 					"top": 50,
-					"width": 780,
-					"height": 420,
-					"events": [
-						"onClick",
-						"onHeaderClick",
-						"onDataChange",
-						"onSelectionChange"
-					],
+					"width": 900,
+					"height": 500,
+					"events": [],
 					"listboxType": "collection",
 					"dataSource": "Form:C1466.events",
 					"memorizeValue": false,
 					"showFooters": false,
 					"sizingX": "grow",
 					"sizingY": "grow",
+					"method": "",
+					"fontSize": 11,
 					"columns": [
 						{
 							"header": {
-								"text": "Event kind",
+								"text": "Timestamp",
 								"name": "kind",
 								"textAlign": "left",
 								"horizontalPadding": 0
@@ -50,24 +50,24 @@
 							"footer": {
 								"name": "Fußteil1"
 							},
-							"dataSource": "This:C1470.kind",
-							"width": 130,
-							"minWidth": 130,
+							"dataSource": "This:C1470.timestamp",
+							"width": 150,
+							"minWidth": 150,
 							"maxWidth": 500
 						},
 						{
 							"header": {
 								"name": "timestamp",
-								"text": "Timestamp",
+								"text": "Event kind",
 								"textAlign": "left"
 							},
 							"name": "Spalte2",
 							"footer": {
 								"name": "Fußteil2"
 							},
-							"dataSource": "This:C1470.timestamp",
-							"width": 130,
-							"minWidth": 130,
+							"dataSource": "This:C1470.kind",
+							"width": 110,
+							"minWidth": 100,
 							"maxWidth": 500
 						},
 						{
@@ -81,7 +81,7 @@
 								"name": "Fußteil3"
 							},
 							"dataSource": "This:C1470.filesystemItem",
-							"width": 450,
+							"width": 625,
 							"maxWidth": 2000,
 							"minWidth": 200
 						}
@@ -91,7 +91,7 @@
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 23,
+	"geometryStamp": 33,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",
@@ -99,5 +99,6 @@
 		"views": {
 			"View 1": {}
 		}
-	}
+	},
+	"method": "method.4dm"
 }

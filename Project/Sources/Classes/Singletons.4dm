@@ -30,7 +30,7 @@ Function getSharedConfig() : cs:C1710.WatcherConfig
 			$pathToWatchedDir:=Folder:C1567("/Users/tammo/Development/Projects/4D/VM/VM-Sources/VM-Current")
 			$pathToBackend:=Folder:C1567(Convert path system to POSIX:C1106(Folder:C1567(fk resources folder:K87:11).platformPath))\
 				.folder("bin")\
-				.file("filewatcher-4D")
+				.file("filewatcher")
 			
 			var $config : cs:C1710.WatcherConfig
 			$config:=cs:C1710.WatcherConfig.new()\
