@@ -12,7 +12,7 @@ Class constructor()
 	This:C1470.encoding:="UTF-8"
 	
 	// Property must be shared for use in other processes!
-	This:C1470.events:=New shared collection:C1527()
+	This:C1470.events:=New collection:C1472()
 	
 	// Enriched settings
 	This:C1470._watchedDir:=Null:C1517
