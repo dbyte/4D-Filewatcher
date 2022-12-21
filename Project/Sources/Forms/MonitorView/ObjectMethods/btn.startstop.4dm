@@ -1,11 +1,11 @@
-/* OM: ObserverView.btn.startstop
+/* OM: MonitorView.btn.startstop
 
 Object listener for Button Start/Stop.
 ----------------------------------------------------
 */
 
 If (Form event code:C388=On Clicked:K2:4)
-	var $controller : cs:C1710.ObserverViewController
+	var $controller : cs:C1710.MonitorViewController
 	$controller:=Form:C1466.controller
 	
 	If ($controller.startWatcher())

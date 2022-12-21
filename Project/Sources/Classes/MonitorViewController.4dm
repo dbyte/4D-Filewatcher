@@ -1,11 +1,11 @@
-/* cs.ObserverViewController
+/* cs.MonitorViewController
 
-View controller for view "Observer".
+View controller for MonitorView.
 ----------------------------------------------------
 */
 
 Class constructor($config : cs:C1710.WatcherConfig)
-	This:C1470._FORM_NAME:="ObserverView"
+	This:C1470._FORM_NAME:="MonitorView"
 	This:C1470._WORKER_ID:="filewatcher"
 	This:C1470._config:=OB Copy:C1225($config; ck shared:K85:29)
 	This:C1470._watcher:=cs:C1710.Watcher.new(This:C1470._config)

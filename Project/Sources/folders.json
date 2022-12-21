@@ -1,18 +1,21 @@
 {
+	"(views)": {},
 	"core": {
 		"methods": [
 			"launcher"
 		],
+		"forms": [
+			"MonitorView"
+		],
 		"classes": [
-			"ObserverViewController",
+			"MonitorViewController",
 			"Watcher",
 			"WatcherConfig"
 		]
 	},
-	"forms": {
-		"forms": [
-			"ObserverView"
+	"trash": {
+		"groups": [
+			"(views)"
 		]
-	},
-	"trash": {}
+	}
 }

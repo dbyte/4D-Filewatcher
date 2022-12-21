@@ -1,6 +1,6 @@
-/* PFM: ObserverView
+/* PFM: MonitorView
 
-Form listener for ObserverView.
+Form listener for MonitorView.
 ----------------------------------------------------
 */
 

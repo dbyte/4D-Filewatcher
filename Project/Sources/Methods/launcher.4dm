@@ -18,4 +18,4 @@ $config:=cs:C1710.WatcherConfig.new()\
 .withWatchedDir($pathToWatchedDir)\
 .withBackend($pathToBackend)
 
-cs:C1710.ObserverViewController.new($config).openView()
+cs:C1710.MonitorViewController.new($config).openView()
