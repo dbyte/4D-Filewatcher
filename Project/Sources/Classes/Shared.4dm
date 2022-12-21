@@ -44,18 +44,3 @@ Function getConfig() : cs:C1710.WatcherConfig
 	return $root.config
 	
 	
-Function getWatcher() : cs:C1710.Watcher
-	var $root : Object
-	$root:=This:C1470._getRootObject()
-	
-	Use ($root)
-		If (Undefined:C82($root.watcher))
-			$root.watcher:=OB Copy:C1225(cs:C1710.Watcher.new(); ck shared:K85:29; $root)
-			
-			// Warning: Injecting $config as a shared instance at construction-time
-			// does not work as of 4Dv19.R6HF2.283927 (but no RTE is thrown):
-			// $root.watcher:=OB Copy(cs.Watcher.new(This.getConfig()); ck shared; $root)
-		End if 
-	End use 
-	return $root.watcher
-	

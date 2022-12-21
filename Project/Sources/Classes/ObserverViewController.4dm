@@ -3,17 +3,18 @@
 ----------------------------------------------------
 */
 
-Class constructor()
-	This:C1470.FORM_NAME:="ObserverView"
-	This:C1470.WORKER_ID:="filewatcher"
+Class constructor($watcher : cs:C1710.Watcher)
+	This:C1470._FORM_NAME:="ObserverView"
+	This:C1470._WORKER_ID:="filewatcher"
+	This:C1470._watcher:=$watcher
 	
 	
 Function openView()
 	var $winRef : Integer
 	
-	$winRef:=Open form window:C675(String:C10(This:C1470.FORM_NAME); Plain form window:K39:10)
+	$winRef:=Open form window:C675(String:C10(This:C1470._FORM_NAME); Plain form window:K39:10)
 	SHOW WINDOW:C435($winRef)
-	DIALOG:C40(This:C1470.FORM_NAME; New object:C1471("controller"; This:C1470))
+	DIALOG:C40(This:C1470._FORM_NAME; New object:C1471("controller"; This:C1470))
 	
 	This:C1470.stopWatcher()
 	
@@ -24,23 +25,29 @@ Function startWatcher() : Boolean
 		This:C1470.stopWatcher()
 		
 	Else 
-		// Launch worker thread. 
-		// At the end we have one new thread which spawns a new 4D.Systemworker
-		// on the same thread but async.
-		// Warning! We must use a predefined $watcher variable here, being
-		// captured by Formula().
-		// Formula(This._shared().getWatcher().run()) will result in a RTE!
+/*
+Launch worker thread. 
+At the end we have one new thread which spawns a new 4D.Systemworker
+on the same thread but async.
+		
+Warning! We must use a predefined $watcher variable here, being
+captured by Formula().
+Formula(This._watcher.run()) will result in a RTE!
+*/
 		var $watcher : cs:C1710.Watcher
-		$watcher:=This:C1470._shared().getWatcher()
-		CALL WORKER:C1389(This:C1470.WORKER_ID; Formula:C1597($watcher.run()))
+		$watcher:=This:C1470._watcher
+		CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($watcher.run()))
 	End if 
 	
 	return This:C1470.isWatcherRunning()
 	
 	
 Function stopWatcher()
-	This:C1470._shared().getWatcher().terminateBackend()
-	KILL WORKER:C1390(This:C1470.WORKER_ID)
+	var $watcher : cs:C1710.Watcher
+	$watcher:=This:C1470._watcher  // to get some code completion
+	
+	$watcher.terminateBackend()
+	KILL WORKER:C1390(This:C1470._WORKER_ID)
 	While (This:C1470.isWatcherRunning())
 		// Block and wait for termination.
 	End while 
@@ -68,7 +75,7 @@ Function refreshEventsListbox() : Collection
 	
 Function isWatcherRunning() : Boolean
 	var $state : Integer
-	$state:=Process state:C330(Process number:C372(This:C1470.WORKER_ID))
+	$state:=Process state:C330(Process number:C372(This:C1470._WORKER_ID))
 	return (($state=Executing:K13:4) || ($state=Waiting for user event:K13:9))
 	
 	
@@ -81,5 +88,6 @@ Function get watchedDirPlatformPath() : Text
 	
 	
 Function _shared() : cs:C1710.Shared
+	// Get some code completion in callers.
 	return cs:C1710.Shared.new()
 	
