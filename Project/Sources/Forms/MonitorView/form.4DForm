@@ -106,7 +106,7 @@
 					"method": "ObjectMethods/btn.startstop.4dm",
 					"focusable": false
 				},
-				"numEvents": {
+				"entry.numEvents": {
 					"type": "input",
 					"left": 430,
 					"top": 30,
@@ -125,7 +125,7 @@
 					"fontSize": 11,
 					"memorizeValue": true
 				},
-				"Text": {
+				"lbl.numEvents": {
 					"type": "text",
 					"text": "Number of events",
 					"top": 10,
@@ -154,7 +154,7 @@
 					"method": "ObjectMethods/btn.clearList.4dm",
 					"focusable": false
 				},
-				"Text1": {
+				"lbl.watchedDir": {
 					"type": "text",
 					"text": "Watched directory",
 					"top": 10,
@@ -166,15 +166,15 @@
 					"textAlign": "left",
 					"sizingX": "grow"
 				},
-				"watchedDir": {
+				"entry.watchedDir": {
 					"type": "input",
 					"left": 20,
 					"top": 30,
 					"width": 400,
 					"height": 17,
 					"dataSource": "Form:C1466.controller.watchedDirPlatformPath",
-					"dataSourceTypeHint": "integer",
-					"enterable": true,
+					"dataSourceTypeHint": "text",
+					"enterable": false,
 					"focusable": false,
 					"contextMenu": "none",
 					"multiline": "no",
@@ -183,13 +183,34 @@
 					"sizingX": "grow",
 					"sizingY": "fixed",
 					"fontSize": 11,
-					"memorizeValue": true
+					"memorizeValue": true,
+					"events": [
+						"onClick"
+					],
+					"method": ""
+				},
+				"btn.settings": {
+					"type": "button",
+					"text": "Settings",
+					"top": 590,
+					"left": 290,
+					"width": 123,
+					"height": 25,
+					"events": [
+						"onClick"
+					],
+					"borderStyle": "none",
+					"action": "",
+					"sizingX": "fixed",
+					"sizingY": "move",
+					"method": "ObjectMethods/btn.settings.4dm",
+					"focusable": false
 				}
 			}
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 204,
+	"geometryStamp": 231,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",

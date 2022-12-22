@@ -1,0 +1,105 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 300,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 2000,
+	"windowMaxHeight": 300,
+	"events": [],
+	"windowTitle": "Set watched directory",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"Eingabe": {
+					"type": "input",
+					"left": 20,
+					"top": 40,
+					"width": 780,
+					"height": 17,
+					"right": 800,
+					"contextMenu": "automatic",
+					"multiline": "no",
+					"dataSource": "Form:C1466.watchedDirEntryField",
+					"sizingX": "grow",
+					"method": ""
+				},
+				"btn.cancel": {
+					"type": "button",
+					"text": "Cancel",
+					"top": 70,
+					"left": 590,
+					"width": 100,
+					"height": 20,
+					"events": [
+						"onClick"
+					],
+					"visibility": "visible",
+					"defaultButton": false,
+					"action": "cancel",
+					"focusable": true,
+					"sizingX": "move"
+				},
+				"btn.accept": {
+					"type": "button",
+					"text": "Set",
+					"top": 70,
+					"left": 700,
+					"width": 100,
+					"height": 20,
+					"events": [
+						"onClick"
+					],
+					"visibility": "visible",
+					"defaultButton": true,
+					"action": "accept",
+					"focusable": true,
+					"method": "",
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false,
+					"shortcutAlt": false,
+					"shortcutKey": "",
+					"sizingX": "move"
+				},
+				"lbl.setWatchedDir": {
+					"type": "text",
+					"text": "Set watched directory",
+					"top": 10,
+					"left": 20,
+					"width": 780,
+					"height": 20,
+					"sizingY": "fixed",
+					"textAlign": "center",
+					"sizingX": "grow",
+					"fontTheme": "main",
+					"fontSize": 14
+				}
+			},
+			"entryOrder": [
+				"Eingabe",
+				"btn.accept",
+				"btn.cancel"
+			]
+		}
+	],
+	"geometryStamp": 109,
+	"colorScheme": "dark",
+	"memorizeGeometry": false,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	},
+	"rightMargin": 20,
+	"bottomMargin": 20
+}

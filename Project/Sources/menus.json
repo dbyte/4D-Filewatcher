@@ -2,16 +2,13 @@
 	"bars": [
 		{
 			"id": 1,
-			"name": "Barre #1",
+			"name": "MonitorView.default",
 			"items": [
 				{
 					"link": 32001
 				},
 				{
-					"link": 32002
-				},
-				{
-					"link": 32003
+					"link": 32004
 				}
 			]
 		}
@@ -19,10 +16,16 @@
 	"menus": [
 		{
 			"link": 32001,
-			"title": ":xliff:CommonMenuFile",
+			"title": "File",
 			"items": [
 				{
-					"title": ":xliff:CommonMenuItemQuit",
+					"title": "Run File Watcher",
+					"method": "launch",
+					"shortcutAccel": true,
+					"shortcutKey": "r"
+				},
+				{
+					"title": "Quit",
 					"shortcutAccel": true,
 					"shortcutKey": "Q",
 					"action": "quit"
@@ -30,64 +33,56 @@
 			]
 		},
 		{
-			"link": 32002,
-			"title": ":xliff:CommonMenuEdit",
+			"link": 32004,
+			"title": "Edit",
 			"items": [
 				{
-					"title": ":xliff:CommonMenuItemUndo",
+					"title": "Undo",
 					"shortcutAccel": true,
-					"shortcutKey": "Z",
+					"shortcutKey": "z",
 					"action": "undo"
 				},
 				{
 					"title": "(-",
-					"isSeparator": true
+					"isSeparator": true,
+					"enabled": false
 				},
 				{
-					"title": ":xliff:CommonMenuItemCut",
+					"title": "Cut",
 					"shortcutAccel": true,
-					"shortcutKey": "X",
+					"shortcutKey": "x",
 					"action": "cut"
 				},
 				{
-					"title": ":xliff:CommonMenuItemCopy",
+					"title": "Copy",
 					"shortcutAccel": true,
-					"shortcutKey": "C",
+					"shortcutKey": "c",
 					"action": "copy"
 				},
 				{
-					"title": ":xliff:CommonMenuItemPaste",
+					"title": "Paste",
 					"shortcutAccel": true,
-					"shortcutKey": "V",
+					"shortcutKey": "v",
 					"action": "paste"
 				},
 				{
-					"title": ":xliff:CommonMenuItemClear",
+					"title": "Delete",
 					"action": "clear"
 				},
 				{
-					"title": ":xliff:CommonMenuItemSelectAll",
+					"title": "Select all",
 					"shortcutAccel": true,
-					"shortcutKey": "A",
+					"shortcutKey": "a",
 					"action": "selectAll"
 				},
 				{
 					"title": "(-",
-					"isSeparator": true
+					"isSeparator": true,
+					"enabled": false
 				},
 				{
-					"title": ":xliff:CommonMenuItemShowClipboard",
+					"title": "Show pasteboard",
 					"action": "showClipboard"
-				}
-			]
-		},
-		{
-			"link": 32003,
-			"title": ":xliff:CommonMenuMode",
-			"items": [
-				{
-					"title": ":xliff:CommonMenuItemDesign",
-					"action": "design"
 				}
 			]
 		}

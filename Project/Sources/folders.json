@@ -1,21 +1,21 @@
 {
-	"(views)": {},
-	"core": {
+	"backend": {
 		"methods": [
-			"launcher"
-		],
-		"forms": [
-			"MonitorView"
+			"launch"
 		],
 		"classes": [
-			"MonitorViewController",
 			"Watcher",
 			"WatcherConfig"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(views)"
+	"frontend": {
+		"forms": [
+			"MonitorView",
+			"SettingsView"
+		],
+		"classes": [
+			"MonitorViewController"
 		]
-	}
+	},
+	"trash": {}
 }
