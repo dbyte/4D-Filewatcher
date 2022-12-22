@@ -6,21 +6,17 @@ Project/Trash
 userPreferences.*
 *.4BK
 *.4ST
-backupHistory.json
-#
 Logs/
 WebFolder/
-#
+# Other 4D stuff
+temporary files/
 # macOS arm64 Libs
 Libraries/
 
-# Testergebnisse aus Unit4D
+# Test results Unit4D
 /**/UnitTests/results
 
-# Unknown
-temporary files/
-
-# System Files
+# System files
 .DS_Store
 ehthumbs.db
 Thumbs.db
