@@ -172,7 +172,7 @@
 					"top": 30,
 					"width": 400,
 					"height": 17,
-					"dataSource": "Form:C1466.controller.watchedDirPlatformPath",
+					"dataSource": "Form:C1466.controller.watchedDirPath",
 					"dataSourceTypeHint": "text",
 					"enterable": false,
 					"focusable": false,

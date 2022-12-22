@@ -57,8 +57,8 @@ Function refreshView() : Collection
 	// Refresh listbox collection and other view objects which reference
 	// properties of This._config. This is a dumb workaround as suggested in lots of
 	// 4D forum threads. We'll have to mix up data for view purposes, which smells.
-	// It is also needed to refresh the field view (Form.controller.watchedDirPlatformPath).
-	// The field gets its data by calling computed prop This.watchedDirPlatformPath, which
+	// It is also needed to refresh the field view (Form.controller.watchedDirPath).
+	// The field gets its data by calling computed prop This.watchedDirPath, which
 	// then will request props of This._config.This._config is a shared object, so why do
 	// we have to do that???
 	var $config : cs:C1710.WatcherConfig
@@ -76,12 +76,16 @@ Function get events() : Collection
 	return $config.events
 	
 	
-Function get watchedDirPlatformPath() : Text
+Function get watchedDirPath() : Text
 	var $config : cs:C1710.WatcherConfig
-	var $pathAsPosixString : Text
+	var $pathAsString : Text
 	$config:=This:C1470._config
-	$pathAsPosixString:=$config.getWatchedDir().path
-	return $pathAsPosixString
+	If (Is Windows:C1573)
+		$pathAsString:=$config.getWatchedDir().platformPath
+	Else 
+		$pathAsString:=$config.getWatchedDir().path
+	End if 
+	return $pathAsString
 	
 	// mark: - Settings view
 	
@@ -101,7 +105,11 @@ Function openSettingsView()
 	End if 
 	
 	$formData:=New object:C1471()
-	$formData.watchedDirEntryField:=$config.getWatchedDir().path
+	If (Is Windows:C1573)
+		$formData.watchedDirEntryField:=$config.getWatchedDir().platformPath
+	Else 
+		$formData.watchedDirEntryField:=$config.getWatchedDir().path
+	End if 
 	
 	$winRef:=Open form window:C675(String:C10(This:C1470._SETTINGS_VIEW_NAME); Sheet form window:K39:12)
 	DIALOG:C40(This:C1470._SETTINGS_VIEW_NAME; $formData)
@@ -115,7 +123,14 @@ Function openSettingsView()
 		return 
 	End if 
 	
-	If (Not:C34(Folder:C1567($formData.watchedDirEntryField).exists))
+	var $abstractedPath : 4D:C1709.Folder
+	If (Is Windows:C1573)
+		$abstractedPath:=Folder:C1567($formData.watchedDirEntryField; fk platform path:K87:2)
+	Else 
+		$abstractedPath:=Folder:C1567($formData.watchedDirEntryField; fk posix path:K87:1)
+	End if 
+	
+	If (Not:C34($abstractedPath.exists))
 		BEEP:C151
 		ALERT:C41("Directory "+$formData.watchedDirEntryField+" does not exist.")
 		return 
@@ -125,6 +140,6 @@ Function openSettingsView()
 	$config:=This:C1470._config  // to get some code completion
 	
 	Use ($config)
-		$config.withWatchedDir(Folder:C1567($formData.watchedDirEntryField))
+		$config.withWatchedDir($abstractedPath)
 	End use 
 	
