@@ -1,6 +1,6 @@
 /* cs.Watcher
 ----------------------------------------------------------------
-Maintains 4D.SystemWorker which itself calls a OS-native file watcher backend.
+Launches and maintains 4D.SystemWorker which itself calls a OS-native file watcher backend.
 ---------------------------------------------------------------- */
 
 Class constructor($config : cs:C1710.WatcherConfig)

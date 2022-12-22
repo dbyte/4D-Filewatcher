@@ -1,6 +1,8 @@
 /* cs.MonitorViewController
 
-View controller for MonitorView.
+View controller for MonitorView. This also is a kind of
+API to the Filewatcher which would even work if you extracted the
+window calls.
 ----------------------------------------------------
 */
 

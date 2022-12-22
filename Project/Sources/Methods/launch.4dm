@@ -1,8 +1,7 @@
 //%attributes = {}
 /* PM: launch
 ----------------------------------------------------------------
-A worker process launcher which spawns a thread for a 4D.SystemWorker.
-So at the end we have 2 running workers
+Prepares and launches the monitor view controller and its view.
 ---------------------------------------------------------------- */
 
 var $backendBinary : Text

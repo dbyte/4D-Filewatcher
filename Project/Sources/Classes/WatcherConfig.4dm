@@ -1,6 +1,7 @@
 /* cs.WatcherConfig
 ----------------------------------------------------------------
 Enriched wrapper around 4D system worker "options" constructor parameter.
+Also handles the system worker's callbacks, which is not SOC - todo.
 ---------------------------------------------------------------- */
 
 Class constructor()
