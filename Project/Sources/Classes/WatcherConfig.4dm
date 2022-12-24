@@ -15,32 +15,32 @@ Class constructor()
 	This:C1470.events:=New collection:C1472()
 	
 	// Enriched settings
-	This:C1470._watchedDir:=Null:C1517
 	This:C1470._backend:=Null:C1517
+	This:C1470._watchedDir:=Null:C1517
+	This:C1470._throttleSecs:=1
 	
 	// mark: - Callbacks
 	// The follwing methods have fixed callback signatures,
 	// See also: https://doc4d.github.io/docs/19-R6/API/SystemWorkerClass
 	
 Function onResponse($worker : 4D:C1709.SystemWorker)
-	This:C1470._printNewLine("onResponse called")
+	This:C1470._collect("--\tWatcher backend: messages closed\t--")
 	
 	
 Function onData($worker : 4D:C1709.SystemWorker; $info : Object)
 	This:C1470._collect($info.data)
-	This:C1470._printNewLine("onData called: "+$info.data)
+	
 	
 Function onDataError($worker : 4D:C1709.SystemWorker; $info : Object)
-	This:C1470._printNewLine("onDataError called: "+$info.data)
+	This:C1470._collect($info.data)
 	
 	
 Function onError($worker : 4D:C1709.SystemWorker; $info : Object)
-	// Not implemented.
+	This:C1470._collect($info.data)
 	
 	
 Function onTerminate($worker : 4D:C1709.SystemWorker)
-	This:C1470._printNewLine("onTerminate called, result code: "+String:C10($worker.exitCode))
-	
+	This:C1470._collect("--\tWatcher backend: terminated\t--")
 	
 	// mark: - Enriched settings builder
 	
@@ -51,6 +51,11 @@ Function withWatchedDir($pathToDir : 4D:C1709.Folder) : cs:C1710.WatcherConfig
 	
 Function withBackend($pathToBinary : 4D:C1709.File) : cs:C1710.WatcherConfig
 	This:C1470._backend:=$pathToBinary
+	return This:C1470
+	
+	
+Function withThrottleSecs($seconds : Integer) : cs:C1710.WatcherConfig
+	This:C1470._throttleSecs:=$seconds
 	return This:C1470
 	
 	// mark: - Helpers
@@ -65,16 +70,17 @@ Function _collect($message : Text)
 	var $event : Object
 	$event:=New object:C1471()
 	
-	$event.timestamp:=$parts[0]
-	$event.kind:=$parts[1]
-	$event.filesystemItem:=$parts[2]
+	If ($parts.count()>=3)
+		$event.timestamp:=$parts[0]
+		$event.kind:=$parts[1]
+		$event.filesystemItem:=$parts[2]
+	Else 
+		$event.timestamp:="--"
+		$event.kind:="Error "+cs:C1710.WatcherConfig.name+": Expected min. 3 data items, got "+String:C10($parts.count())
+		$event.filesystemItem:="--"
+	End if 
 	
 	$events.push(OB Copy:C1225($event; ck shared:K85:29))
-	
-Function _printNewLine($message : Text)
-	// This.data:=$message+Char(Carriage return)
-	// Open window(50; 50; 500; 250; 5; "Operation läuft")
-	// MESSAGE(This.data)
 	
 	// mark: - Getters
 	
@@ -84,3 +90,8 @@ Function getWatchedDir() : 4D:C1709.Folder
 	
 Function getBackend() : 4D:C1709.File
 	return This:C1470._backend
+	
+	
+Function getThrottleSecs() : Integer
+	return This:C1470._throttleSecs
+	

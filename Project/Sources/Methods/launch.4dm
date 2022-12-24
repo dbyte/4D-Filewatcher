@@ -17,6 +17,7 @@ $pathToBackend:=Folder:C1567(Convert path system to POSIX:C1106(Folder:C1567(fk 
 var $config : cs:C1710.WatcherConfig
 $config:=cs:C1710.WatcherConfig.new()\
 .withWatchedDir($pathToWatchedDir)\
-.withBackend($pathToBackend)
+.withBackend($pathToBackend)\
+.withThrottleSecs(1)
 
 cs:C1710.MonitorViewController.new($config).openView()

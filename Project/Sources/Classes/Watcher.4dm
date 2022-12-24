@@ -45,7 +45,10 @@ Function _launchBackend()
 	// Run external program; async with callback strategy, but same process.
 	Use (This:C1470)
 		This:C1470._sysWorker:=OB Copy:C1225(\
-			4D:C1709.SystemWorker.new($config.getBackend().path+" "+$config.getWatchedDir().path; $config); \
+			4D:C1709.SystemWorker.new($config.getBackend().path+\
+			" --watched-item="+$config.getWatchedDir().path+\
+			" --throttle-secs="+String:C10($config.getThrottleSecs()); \
+			$config); \
 			ck shared:K85:29)
 	End use 
 	// $sysWorker.closeInput()

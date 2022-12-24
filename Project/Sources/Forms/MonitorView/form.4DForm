@@ -68,7 +68,7 @@
 								"name": "Fußteil2"
 							},
 							"dataSource": "This:C1470.kind",
-							"width": 110,
+							"width": 140,
 							"minWidth": 100,
 							"maxWidth": 500
 						},
@@ -83,7 +83,7 @@
 								"name": "Fußteil3"
 							},
 							"dataSource": "This:C1470.filesystemItem",
-							"width": 625,
+							"width": 595,
 							"maxWidth": 2000,
 							"minWidth": 200
 						}
