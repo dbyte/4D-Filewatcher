@@ -23,4 +23,4 @@ To get some infos about this command line app, just run it natively in your term
 The monitoring on the part of the backend is currently throttled (a.k.a. bounced) to 1 second by the 4D config
 within the `launch` method, because the recorded changes, even with nested directories with ~70.000 files, are
 so fast that they would be recorded up to 3 times for the same file with different Git events (delete, create, modify)
-in case you monitor a Git repo.
+in case you monitor a Git repo. Anyway, this value is configurable via the 4D frontend.

@@ -10,7 +10,7 @@
 	"windowMaxWidth": 2000,
 	"windowMaxHeight": 300,
 	"events": [],
-	"windowTitle": "Set watched directory",
+	"windowTitle": "Settings",
 	"destination": "detailScreen",
 	"pages": [
 		{
@@ -18,7 +18,7 @@
 		},
 		{
 			"objects": {
-				"Eingabe": {
+				"entry": {
 					"type": "input",
 					"left": 20,
 					"top": 40,
@@ -29,12 +29,13 @@
 					"multiline": "no",
 					"dataSource": "Form:C1466.watchedDirEntryField",
 					"sizingX": "grow",
-					"method": ""
+					"method": "",
+					"fontSize": 12
 				},
 				"btn.cancel": {
 					"type": "button",
 					"text": "Cancel",
-					"top": 70,
+					"top": 120,
 					"left": 590,
 					"width": 100,
 					"height": 20,
@@ -50,7 +51,7 @@
 				"btn.accept": {
 					"type": "button",
 					"text": "Set",
-					"top": 70,
+					"top": 120,
 					"left": 700,
 					"width": 100,
 					"height": 20,
@@ -69,28 +70,58 @@
 					"shortcutKey": "",
 					"sizingX": "move"
 				},
-				"lbl.setWatchedDir": {
+				"lbl.entry": {
 					"type": "text",
-					"text": "Set watched directory",
-					"top": 10,
+					"text": "Watched directory",
+					"top": 20,
 					"left": 20,
 					"width": 780,
-					"height": 20,
+					"height": 17,
 					"sizingY": "fixed",
-					"textAlign": "center",
+					"textAlign": "left",
 					"sizingX": "grow",
-					"fontTheme": "main",
-					"fontSize": 14
+					"fontSize": 11
+				},
+				"entry1": {
+					"type": "input",
+					"left": 20,
+					"top": 85,
+					"width": 150,
+					"height": 17,
+					"right": 170,
+					"contextMenu": "automatic",
+					"multiline": "no",
+					"dataSource": "Form:C1466.throttleSecs",
+					"sizingX": "fixed",
+					"method": "",
+					"fontSize": 12,
+					"dataSourceTypeHint": "integer",
+					"textAlign": "left",
+					"min": 0,
+					"max": 32000
+				},
+				"lbl.entry1": {
+					"type": "text",
+					"text": "Backend throttle (seconds)",
+					"top": 65,
+					"left": 20,
+					"width": 150,
+					"height": 17,
+					"sizingY": "fixed",
+					"textAlign": "left",
+					"sizingX": "fixed",
+					"fontSize": 11
 				}
 			},
 			"entryOrder": [
-				"Eingabe",
+				"entry",
+				"entry1",
 				"btn.accept",
 				"btn.cancel"
 			]
 		}
 	],
-	"geometryStamp": 109,
+	"geometryStamp": 161,
 	"colorScheme": "dark",
 	"memorizeGeometry": false,
 	"editor": {

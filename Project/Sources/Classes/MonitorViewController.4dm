@@ -89,6 +89,12 @@ Function get watchedDirPath() : Text
 	End if 
 	return $pathAsString
 	
+	
+Function get throttleSecs() : Integer
+	var $config : cs:C1710.WatcherConfig
+	$config:=This:C1470._config
+	return $config.getThrottleSecs()
+	
 	// mark: - Settings view
 	
 Function openSettingsView()
@@ -112,6 +118,7 @@ Function openSettingsView()
 	Else 
 		$formData.watchedDirEntryField:=$config.getWatchedDir().path
 	End if 
+	$formData.throttleSecs:=$config.getThrottleSecs()
 	
 	$winRef:=Open form window:C675(String:C10(This:C1470._SETTINGS_VIEW_NAME); Sheet form window:K39:12)
 	DIALOG:C40(This:C1470._SETTINGS_VIEW_NAME; $formData)
@@ -143,5 +150,6 @@ Function openSettingsView()
 	
 	Use ($config)
 		$config.withWatchedDir($abstractedPath)
+		$config.withThrottleSecs(Num:C11($formData.throttleSecs))
 	End use 
 	

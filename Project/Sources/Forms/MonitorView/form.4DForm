@@ -15,7 +15,7 @@
 		"onLoad",
 		"onTimer"
 	],
-	"windowTitle": "File Watch",
+	"windowTitle": "Monitor",
 	"destination": "detailScreen",
 	"pages": [
 		{
@@ -108,7 +108,7 @@
 				},
 				"entry.numEvents": {
 					"type": "input",
-					"left": 430,
+					"left": 555,
 					"top": 30,
 					"width": 115,
 					"height": 17,
@@ -129,7 +129,7 @@
 					"type": "text",
 					"text": "Number of events",
 					"top": 10,
-					"left": 430,
+					"left": 555,
 					"width": 115,
 					"height": 16,
 					"sizingY": "fixed",
@@ -205,12 +205,52 @@
 					"sizingY": "move",
 					"method": "ObjectMethods/btn.settings.4dm",
 					"focusable": false
+				},
+				"entry.throttleSecs": {
+					"type": "input",
+					"left": 430,
+					"top": 30,
+					"width": 115,
+					"height": 17,
+					"dataSource": "Form:C1466.controller.throttleSecs",
+					"dataSourceTypeHint": "integer",
+					"enterable": false,
+					"focusable": false,
+					"contextMenu": "none",
+					"multiline": "no",
+					"placeholder": "0",
+					"textAlign": "center",
+					"sizingX": "move",
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"memorizeValue": true
+				},
+				"lbl.throttleSecs": {
+					"type": "text",
+					"text": "Backend trottle (s)",
+					"top": 10,
+					"left": 430,
+					"width": 115,
+					"height": 16,
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"textAlign": "center",
+					"sizingX": "move"
 				}
-			}
+			},
+			"entryOrder": [
+				"events",
+				"btn.startstop",
+				"btn.clearList",
+				"btn.settings",
+				"entry.watchedDir",
+				"entry.throttleSecs",
+				"entry.numEvents"
+			]
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 231,
+	"geometryStamp": 276,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",
