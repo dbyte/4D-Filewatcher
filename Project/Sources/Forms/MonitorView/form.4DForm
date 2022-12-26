@@ -236,6 +236,37 @@
 					"fontSize": 11,
 					"textAlign": "center",
 					"sizingX": "move"
+				},
+				"entry.workerPreemptiveMode": {
+					"type": "input",
+					"left": 680,
+					"top": 30,
+					"width": 115,
+					"height": 17,
+					"dataSource": "Form:C1466.controller.workerPreemptiveMode",
+					"dataSourceTypeHint": "text",
+					"enterable": false,
+					"focusable": false,
+					"contextMenu": "none",
+					"multiline": "no",
+					"placeholder": "0",
+					"textAlign": "center",
+					"sizingX": "move",
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"memorizeValue": true
+				},
+				"lbl.workerPreemptiveMode": {
+					"type": "text",
+					"text": "Worker mode",
+					"top": 10,
+					"left": 680,
+					"width": 115,
+					"height": 16,
+					"sizingY": "fixed",
+					"fontSize": 11,
+					"textAlign": "center",
+					"sizingX": "move"
 				}
 			},
 			"entryOrder": [
@@ -245,12 +276,13 @@
 				"btn.settings",
 				"entry.watchedDir",
 				"entry.throttleSecs",
-				"entry.numEvents"
+				"entry.numEvents",
+				"entry.workerPreemptiveMode"
 			]
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 276,
+	"geometryStamp": 320,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",

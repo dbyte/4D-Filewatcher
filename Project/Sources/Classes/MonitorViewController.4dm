@@ -95,6 +95,20 @@ Function get throttleSecs() : Integer
 	$config:=This:C1470._config
 	return $config.getThrottleSecs()
 	
+	
+Function get workerPreemptiveMode() : Text
+	var $watcher : cs:C1710.Watcher
+	$watcher:=This:C1470._watcher
+	
+	Case of 
+		: ($watcher.getWorkerProcessMode()=0)
+			return "inactive"
+		: ($watcher.getWorkerProcessMode() ?? 1)
+			return "preemptive"
+		Else 
+			return "cooperative"
+	End case 
+	
 	// mark: - Settings view
 	
 Function openSettingsView()
