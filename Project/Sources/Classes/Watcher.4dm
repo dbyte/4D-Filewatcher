@@ -19,7 +19,7 @@ Formula(This._launchBackend.run()) will result in a RTE!
 	var $this : cs:C1710.Watcher
 	$this:=This:C1470
 	
-	CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($this._launchBackend()); This:C1470._config)
+	CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($this._launchBackend()))
 	// Block and wait until process ready.
 	While (Not:C34(This:C1470.isRunning()))
 	End while 
