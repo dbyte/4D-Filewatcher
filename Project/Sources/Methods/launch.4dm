@@ -9,7 +9,7 @@ var $pathToBackend : 4D:C1709.File
 var $pathToWatchedDir : 4D:C1709.Folder
 
 $backendBinary:=Is Windows:C1573 ? "filewatcher_backend.exe" : "filewatcher_backend"
-$pathToWatchedDir:=Folder:C1567(Convert path POSIX to system:C1107("."); fk platform path:K87:2)
+$pathToWatchedDir:=Is Windows:C1573 ? (Folder:C1567("C:"; fk platform path:K87:2)) : (Folder:C1567("/"; fk posix path:K87:1))
 $pathToBackend:=Folder:C1567(Convert path system to POSIX:C1106(Folder:C1567(fk resources folder:K87:11).platformPath))\
 .folder("bin")\
 .file($backendBinary)

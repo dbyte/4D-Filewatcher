@@ -47,7 +47,7 @@ Function _launchBackend()
 	Use (Storage:C1525)
 		Storage:C1525.watcherBackendSysWorker:=OB Copy:C1225(\
 			4D:C1709.SystemWorker.new($config.getBackend().path+\
-			" --watched-item="+$config.getWatchedDir().path+\
+			" --watched-item="+$config.getWatchedDirPlatformPath()+\
 			" --throttle-secs="+String:C10($config.getThrottleSecs()); \
 			$config); \
 			ck shared:K85:29)

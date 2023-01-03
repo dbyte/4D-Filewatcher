@@ -80,14 +80,8 @@ Function get events() : Collection
 	
 Function get watchedDirPath() : Text
 	var $config : cs:C1710.WatcherConfig
-	var $pathAsString : Text
 	$config:=This:C1470._config
-	If (Is Windows:C1573)
-		$pathAsString:=$config.getWatchedDir().platformPath
-	Else 
-		$pathAsString:=$config.getWatchedDir().path
-	End if 
-	return $pathAsString
+	return $config.getWatchedDirPlatformPath()
 	
 	
 Function get throttleSecs() : Integer
@@ -127,11 +121,8 @@ Function openSettingsView()
 	End if 
 	
 	$formData:=New object:C1471()
-	If (Is Windows:C1573)
-		$formData.watchedDirEntryField:=$config.getWatchedDir().platformPath
-	Else 
-		$formData.watchedDirEntryField:=$config.getWatchedDir().path
-	End if 
+	
+	$formData.watchedDirEntryField:=$config.getWatchedDirPlatformPath()
 	$formData.throttleSecs:=$config.getThrottleSecs()
 	
 	$winRef:=Open form window:C675(String:C10(This:C1470._SETTINGS_VIEW_NAME); Sheet form window:K39:12)

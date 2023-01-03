@@ -84,8 +84,17 @@ Function _collect($message : Text)
 	
 	// mark: - Getters
 	
-Function getWatchedDir() : 4D:C1709.Folder
-	return This:C1470._watchedDir
+Function getWatchedDirPlatformPath()->$pathAsString : Text
+	// This is the REAL platform path format (not the one abstracted
+	// by 4D .platformPath): Backslashed for Windows, POSIX for macOS.
+	var $watchedDir : 4D:C1709.Folder
+	$watchedDir:=This:C1470._watchedDir
+	
+	If (Is Windows:C1573)
+		$pathAsString:=$watchedDir.platformPath
+	Else 
+		$pathAsString:=$watchedDir.path
+	End if 
 	
 	
 Function getBackend() : 4D:C1709.File
