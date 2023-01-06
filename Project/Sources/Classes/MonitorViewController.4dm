@@ -1,37 +1,41 @@
 /* cs.MonitorViewController
 
-View controller for MonitorView. This also is a kind of
-API to the Filewatcher which would even work if you extracted the
-window calls.
+View controller for MonitorView. Parts of it are also a kind of API to the
+filewatcher backend which would even work if we dismissed the GUI calls.
 ----------------------------------------------------
 */
 
 Class constructor($config : cs.WatcherConfig)
-	This._MAIN_VIEW_NAME:="MonitorView"
-	This._SETTINGS_VIEW_NAME:="SettingsView"
+	This._VIEW_NAME:="MonitorView"
 	
-	This._mainViewRef:=Null
+	This._viewRef:=Null
 	This._config:=OB Copy($config; ck shared)
 	This._watcher:=cs.Watcher.new(This._config)
 	
 	// mark: -
 	
-Function openView()
+Function showView()
+/* ----------------------------------------------------------------
+Shows the filewatcher monitor.
+---------------------------------------------------------------- */
 	var $watcher : cs.Watcher
-	$watcher:=This._watcher  // to get some code completion
+	$watcher:=This._watcher  // Feed 4D parser bastard with a type-hint
 	
 	SET MENU BAR("MonitorView.default")
 	
-	This._mainViewRef:=Open form window(String(This._MAIN_VIEW_NAME); Plain form window)
-	SHOW WINDOW(This._mainViewRef)
-	DIALOG(This._MAIN_VIEW_NAME; New object("controller"; This))
+	This._viewRef:=Open form window(String(This._VIEW_NAME); Plain form window)
+	SHOW WINDOW(This._viewRef)
+	DIALOG(This._VIEW_NAME; New object("controller"; This))
 	
 	$watcher.terminate()
 	
 	
 Function startWatcher() : Boolean
+/* ----------------------------------------------------------------
+Starts filewatcher backend and its wrapping 4D worker.
+---------------------------------------------------------------- */
 	var $watcher : cs.Watcher
-	$watcher:=This._watcher  // to get some code completion
+	$watcher:=This._watcher  // Feed 4D parser bastard with a type-hint
 	
 	If ($watcher.isRunning())
 		// Do not start a 2nd SystemWorker. Instead, terminate worker thread 
@@ -46,7 +50,7 @@ Function startWatcher() : Boolean
 	
 Function clearAllEvents()
 	var $config : cs.WatcherConfig
-	$config:=This._config  // to get some code completion
+	$config:=This._config  // Feed 4D parser bastard with a type-hint
 	
 	var $events : Collection
 	$events:=$config.events
@@ -56,13 +60,15 @@ Function clearAllEvents()
 	
 	
 Function refreshView() : Collection
-	// Refresh listbox collection and other view objects which reference
-	// properties of This._config. This is a dumb workaround as suggested in lots of
-	// 4D forum threads. We'll have to mix up data for view purposes, which smells.
-	// It is also needed to refresh the field view (Form.controller.watchedDirPath).
-	// The field gets its data by calling computed prop This.watchedDirPath, which
-	// then will request props of This._config.This._config is a shared object, so why do
-	// we have to do that???
+/* ----------------------------------------------------------------
+Refreshes listbox collection and other view objects which reference
+properties of This._config. This is a dumb workaround as suggested in lots of
+4D forum threads. We'll have to mix up data for view purposes, which smells.
+It is also needed to refresh the field view (Form.controller.watchedDirPath).
+The field gets its data by calling computed prop This.watchedDirPath, which
+then will request props of This._config.This._config is a shared object, so why do
+we have to force a refresh?
+---------------------------------------------------------------- */
 	var $config : cs.WatcherConfig
 	$config:=This._config
 	
@@ -73,24 +79,38 @@ Function refreshView() : Collection
 	// mark: - Getters and Setters
 	
 Function get events() : Collection
+/* ----------------------------------------------------------------
+Returns a collection of filewatcher events.
+---------------------------------------------------------------- */
 	var $config : cs.WatcherConfig
-	$config:=This._config
+	$config:=This._config  // Feed 4D parser bastard with a type-hint
 	return $config.events
 	
 	
 Function get watchedDirPath() : Text
+/* ----------------------------------------------------------------
+Returns configured watched directory path as a platform-specific string.
+---------------------------------------------------------------- */
 	var $config : cs.WatcherConfig
 	$config:=This._config
 	return $config.getWatchedDirPlatformPath()
 	
 	
 Function get throttleSecs() : Integer
+/* ----------------------------------------------------------------
+Returns configured backend throttling (a.k.a. bouncing) as seconds.
+---------------------------------------------------------------- */
 	var $config : cs.WatcherConfig
 	$config:=This._config
 	return $config.getThrottleSecs()
 	
 	
 Function get workerPreemptiveMode() : Text
+/* ----------------------------------------------------------------
+Returns current 4D processing mode of the worker as string.
+Possible values are: "inactive", "preemptive", "cooperative".
+Note: Won't be preemptive when running interpreted.
+---------------------------------------------------------------- */
 	var $watcher : cs.Watcher
 	$watcher:=This._watcher
 	
@@ -103,16 +123,14 @@ Function get workerPreemptiveMode() : Text
 			return "cooperative"
 	End case 
 	
-	// mark: - Settings view
+	// mark: - Single page settings view
 	
-Function openSettingsView()
+Function showSettingsView()
+/* ----------------------------------------------------------------
+Returns configured backend throttling (a.k.a. bouncing) as seconds.
+---------------------------------------------------------------- */
 	var $watcher : cs.Watcher
-	var $config : cs.WatcherConfig
-	var $formData : Object
-	var $winRef : Integer
-	
-	$watcher:=This._watcher
-	$config:=This._config
+	$watcher:=This._watcher  // Feed 4D parser bastard with a type-hint
 	
 	If $watcher.isRunning()
 		BEEP
@@ -120,41 +138,5 @@ Function openSettingsView()
 		return 
 	End if 
 	
-	$formData:=New object()
-	
-	$formData.watchedDirEntryField:=$config.getWatchedDirPlatformPath()
-	$formData.throttleSecs:=$config.getThrottleSecs()
-	
-	$winRef:=Open form window(String(This._SETTINGS_VIEW_NAME); Sheet form window)
-	DIALOG(This._SETTINGS_VIEW_NAME; $formData)
-	
-	If (OK=0)
-		return 
-	End if 
-	
-	If ($formData.watchedDirEntryField="")
-		BEEP
-		return 
-	End if 
-	
-	var $abstractedPath : 4D.Folder
-	If (Is Windows)
-		$abstractedPath:=Folder($formData.watchedDirEntryField; fk platform path)
-	Else 
-		$abstractedPath:=Folder($formData.watchedDirEntryField; fk posix path)
-	End if 
-	
-	If (Not($abstractedPath.exists))
-		BEEP
-		ALERT("Directory "+$formData.watchedDirEntryField+" does not exist.")
-		return 
-	End if 
-	
-	var $config : cs.WatcherConfig
-	$config:=This._config  // to get some code completion
-	
-	Use ($config)
-		$config.withWatchedDir($abstractedPath)
-		$config.withThrottleSecs(Num($formData.throttleSecs))
-	End use 
+	cs.SettingsViewController.new(This._config).showView()
 	

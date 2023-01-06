@@ -14,7 +14,8 @@
 			"SettingsView"
 		],
 		"classes": [
-			"MonitorViewController"
+			"MonitorViewController",
+			"SettingsViewController"
 		]
 	},
 	"other": {

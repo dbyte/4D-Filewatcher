@@ -1,6 +1,6 @@
-/* OM: MonitorView.btn.clearList
+/* CL: MonitorView.btn.clearList
 
-Object listener for Button "Clear".
+View component listener for Button "Clear".
 ----------------------------------------------------
 */
 

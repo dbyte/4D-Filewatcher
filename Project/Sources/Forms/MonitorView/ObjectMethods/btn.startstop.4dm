@@ -1,6 +1,6 @@
-/* OM: MonitorView.btn.startstop
+/* CL: MonitorView.btn.startstop
 
-Object listener for Button Start/Stop.
+View component listener for Button "Start"/"Stop".
 ----------------------------------------------------
 */
 
