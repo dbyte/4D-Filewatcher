@@ -9,13 +9,12 @@ Class constructor($config : cs:C1710.WatcherConfig)
 	
 	
 Function run()
-/*
-Launch worker thread with backend program.
+	// Launch worker thread with backend program.
+	// Warning: We must use a predefined $watcher variable here, being
+	// captured by Formula().
+	// Formula(This._launchBackend.run()) will result in a RTE
+	// as of 4Dv19.R6HF2.
 	
-Warning! We must use a predefined $watcher variable here, being
-captured by Formula().
-Formula(This._launchBackend.run()) will result in a RTE!
-*/
 	var $this : cs:C1710.Watcher
 	$this:=This:C1470
 	
@@ -53,13 +52,12 @@ Function _launchBackend()
 	
 	
 Function terminate()
-/*
-Terminates worker thread togehter with backend app.
+	// Terminates worker thread togehter with backend app.	
+	// Warning: We must use a predefined $watcher variable here, being
+	// captured by Formula().
+	// Formula(This._terminateBackend.run()) will result in a RTE
+	// as of 4Dv19.R6HF2.
 	
-Warning! We must use a predefined $watcher variable here, being
-captured by Formula().
-Formula(This._terminateBackend.run()) will result in a RTE!
-*/
 	var $this : cs:C1710.Watcher
 	$this:=This:C1470
 	
@@ -74,9 +72,9 @@ Function _terminateBackend()
 	$sysWorker:=watcherBackendSysWorker
 	
 	If ($sysWorker#Null:C1517)
-		// We could also use sysWorker.terminate() here, but the backend
-		// also reacts on sending "teardown" to its stdin stream to shut down
-		// gracefully.
+		// We could also use $sysWorker.terminate() here, but the backend
+		// also reacts on sending "teardown" to its stdin stream to shut
+		// down gracefully.
 		$sysWorker.postMessage("teardown"+Char:C90(Line feed:K15:40))
 		$sysWorker.wait(5)
 		watcherBackendSysWorker:=Null:C1517

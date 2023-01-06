@@ -1,5 +1,5 @@
 //%attributes = {}
-/* PM: Compiler_Variables
+/* PM: Compiler_P
 
 Process variable declarations
 ----------------------------------------------------

@@ -17,5 +17,10 @@
 			"MonitorViewController"
 		]
 	},
+	"other": {
+		"methods": [
+			"Compiler_P"
+		]
+	},
 	"trash": {}
 }
