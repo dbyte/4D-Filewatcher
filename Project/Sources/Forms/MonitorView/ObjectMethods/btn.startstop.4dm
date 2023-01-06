@@ -4,14 +4,14 @@ Object listener for Button Start/Stop.
 ----------------------------------------------------
 */
 
-If (Form event code:C388=On Clicked:K2:4)
-	var $controller : cs:C1710.MonitorViewController
-	$controller:=Form:C1466.controller
+If (Form event code=On Clicked)
+	var $controller : cs.MonitorViewController
+	$controller:=Form.controller
 	
 	If ($controller.startWatcher())
-		OBJECT SET TITLE:C194(*; FORM Event:C1606.objectName; "Stop")
+		OBJECT SET TITLE(*; FORM Event.objectName; "Stop")
 	Else 
-		OBJECT SET TITLE:C194(*; FORM Event:C1606.objectName; "Start")
+		OBJECT SET TITLE(*; FORM Event.objectName; "Start")
 	End if 
 	
 End if 

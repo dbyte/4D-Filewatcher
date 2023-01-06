@@ -5,4 +5,4 @@ Process variable declarations
 ----------------------------------------------------
 */
 
-var watcherBackendSysWorker : 4D:C1709.SystemWorker
+var watcherBackendSysWorker : 4D.SystemWorker

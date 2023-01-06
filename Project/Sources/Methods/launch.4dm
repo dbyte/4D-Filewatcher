@@ -5,19 +5,19 @@ Prepares and launches the monitor view controller and its view.
 ---------------------------------------------------------------- */
 
 var $backendBinary : Text
-var $pathToBackend : 4D:C1709.File
-var $pathToWatchedDir : 4D:C1709.Folder
+var $pathToBackend : 4D.File
+var $pathToWatchedDir : 4D.Folder
 
-$backendBinary:=Is Windows:C1573 ? "filewatcher_backend.exe" : "filewatcher_backend"
-$pathToWatchedDir:=Is Windows:C1573 ? (Folder:C1567("C:"; fk platform path:K87:2)) : (Folder:C1567("/"; fk posix path:K87:1))
-$pathToBackend:=Folder:C1567(Convert path system to POSIX:C1106(Folder:C1567(fk resources folder:K87:11).platformPath))\
+$backendBinary:=Is Windows ? "filewatcher_backend.exe" : "filewatcher_backend"
+$pathToWatchedDir:=Is Windows ? (Folder("C:"; fk platform path)) : (Folder("/"; fk posix path))
+$pathToBackend:=Folder(Convert path system to POSIX(Folder(fk resources folder).platformPath))\
 .folder("bin")\
 .file($backendBinary)
 
-var $config : cs:C1710.WatcherConfig
-$config:=cs:C1710.WatcherConfig.new()\
+var $config : cs.WatcherConfig
+$config:=cs.WatcherConfig.new()\
 .withWatchedDir($pathToWatchedDir)\
 .withBackend($pathToBackend)\
 .withThrottleSecs(1)
 
-cs:C1710.MonitorViewController.new($config).openView()
+cs.MonitorViewController.new($config).openView()

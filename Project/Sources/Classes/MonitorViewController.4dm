@@ -6,32 +6,32 @@ window calls.
 ----------------------------------------------------
 */
 
-Class constructor($config : cs:C1710.WatcherConfig)
-	This:C1470._MAIN_VIEW_NAME:="MonitorView"
-	This:C1470._SETTINGS_VIEW_NAME:="SettingsView"
+Class constructor($config : cs.WatcherConfig)
+	This._MAIN_VIEW_NAME:="MonitorView"
+	This._SETTINGS_VIEW_NAME:="SettingsView"
 	
-	This:C1470._mainViewRef:=Null:C1517
-	This:C1470._config:=OB Copy:C1225($config; ck shared:K85:29)
-	This:C1470._watcher:=cs:C1710.Watcher.new(This:C1470._config)
+	This._mainViewRef:=Null
+	This._config:=OB Copy($config; ck shared)
+	This._watcher:=cs.Watcher.new(This._config)
 	
 	// mark: -
 	
 Function openView()
-	var $watcher : cs:C1710.Watcher
-	$watcher:=This:C1470._watcher  // to get some code completion
+	var $watcher : cs.Watcher
+	$watcher:=This._watcher  // to get some code completion
 	
-	SET MENU BAR:C67("MonitorView.default")
+	SET MENU BAR("MonitorView.default")
 	
-	This:C1470._mainViewRef:=Open form window:C675(String:C10(This:C1470._MAIN_VIEW_NAME); Plain form window:K39:10)
-	SHOW WINDOW:C435(This:C1470._mainViewRef)
-	DIALOG:C40(This:C1470._MAIN_VIEW_NAME; New object:C1471("controller"; This:C1470))
+	This._mainViewRef:=Open form window(String(This._MAIN_VIEW_NAME); Plain form window)
+	SHOW WINDOW(This._mainViewRef)
+	DIALOG(This._MAIN_VIEW_NAME; New object("controller"; This))
 	
 	$watcher.terminate()
 	
 	
 Function startWatcher() : Boolean
-	var $watcher : cs:C1710.Watcher
-	$watcher:=This:C1470._watcher  // to get some code completion
+	var $watcher : cs.Watcher
+	$watcher:=This._watcher  // to get some code completion
 	
 	If ($watcher.isRunning())
 		// Do not start a 2nd SystemWorker. Instead, terminate worker thread 
@@ -45,8 +45,8 @@ Function startWatcher() : Boolean
 	
 	
 Function clearAllEvents()
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config  // to get some code completion
+	var $config : cs.WatcherConfig
+	$config:=This._config  // to get some code completion
 	
 	var $events : Collection
 	$events:=$config.events
@@ -63,36 +63,36 @@ Function refreshView() : Collection
 	// The field gets its data by calling computed prop This.watchedDirPath, which
 	// then will request props of This._config.This._config is a shared object, so why do
 	// we have to do that???
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config
+	var $config : cs.WatcherConfig
+	$config:=This._config
 	
 	Use ($config)
-		This:C1470._config:=$config
+		This._config:=$config
 	End use 
 	
 	// mark: - Getters and Setters
 	
 Function get events() : Collection
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config
+	var $config : cs.WatcherConfig
+	$config:=This._config
 	return $config.events
 	
 	
 Function get watchedDirPath() : Text
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config
+	var $config : cs.WatcherConfig
+	$config:=This._config
 	return $config.getWatchedDirPlatformPath()
 	
 	
 Function get throttleSecs() : Integer
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config
+	var $config : cs.WatcherConfig
+	$config:=This._config
 	return $config.getThrottleSecs()
 	
 	
 Function get workerPreemptiveMode() : Text
-	var $watcher : cs:C1710.Watcher
-	$watcher:=This:C1470._watcher
+	var $watcher : cs.Watcher
+	$watcher:=This._watcher
 	
 	Case of 
 		: ($watcher.getWorkerProcessMode()=0)
@@ -106,55 +106,55 @@ Function get workerPreemptiveMode() : Text
 	// mark: - Settings view
 	
 Function openSettingsView()
-	var $watcher : cs:C1710.Watcher
-	var $config : cs:C1710.WatcherConfig
+	var $watcher : cs.Watcher
+	var $config : cs.WatcherConfig
 	var $formData : Object
 	var $winRef : Integer
 	
-	$watcher:=This:C1470._watcher
-	$config:=This:C1470._config
+	$watcher:=This._watcher
+	$config:=This._config
 	
 	If $watcher.isRunning()
-		BEEP:C151
-		ALERT:C41("Stop the watcher before changing any settings.")
+		BEEP
+		ALERT("Stop the watcher before changing any settings.")
 		return 
 	End if 
 	
-	$formData:=New object:C1471()
+	$formData:=New object()
 	
 	$formData.watchedDirEntryField:=$config.getWatchedDirPlatformPath()
 	$formData.throttleSecs:=$config.getThrottleSecs()
 	
-	$winRef:=Open form window:C675(String:C10(This:C1470._SETTINGS_VIEW_NAME); Sheet form window:K39:12)
-	DIALOG:C40(This:C1470._SETTINGS_VIEW_NAME; $formData)
+	$winRef:=Open form window(String(This._SETTINGS_VIEW_NAME); Sheet form window)
+	DIALOG(This._SETTINGS_VIEW_NAME; $formData)
 	
 	If (OK=0)
 		return 
 	End if 
 	
 	If ($formData.watchedDirEntryField="")
-		BEEP:C151
+		BEEP
 		return 
 	End if 
 	
-	var $abstractedPath : 4D:C1709.Folder
-	If (Is Windows:C1573)
-		$abstractedPath:=Folder:C1567($formData.watchedDirEntryField; fk platform path:K87:2)
+	var $abstractedPath : 4D.Folder
+	If (Is Windows)
+		$abstractedPath:=Folder($formData.watchedDirEntryField; fk platform path)
 	Else 
-		$abstractedPath:=Folder:C1567($formData.watchedDirEntryField; fk posix path:K87:1)
+		$abstractedPath:=Folder($formData.watchedDirEntryField; fk posix path)
 	End if 
 	
-	If (Not:C34($abstractedPath.exists))
-		BEEP:C151
-		ALERT:C41("Directory "+$formData.watchedDirEntryField+" does not exist.")
+	If (Not($abstractedPath.exists))
+		BEEP
+		ALERT("Directory "+$formData.watchedDirEntryField+" does not exist.")
 		return 
 	End if 
 	
-	var $config : cs:C1710.WatcherConfig
-	$config:=This:C1470._config  // to get some code completion
+	var $config : cs.WatcherConfig
+	$config:=This._config  // to get some code completion
 	
 	Use ($config)
 		$config.withWatchedDir($abstractedPath)
-		$config.withThrottleSecs(Num:C11($formData.throttleSecs))
+		$config.withThrottleSecs(Num($formData.throttleSecs))
 	End use 
 	
