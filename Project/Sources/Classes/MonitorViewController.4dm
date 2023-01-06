@@ -34,7 +34,7 @@ Function startWatcher() : Boolean
 	$watcher:=This:C1470._watcher  // to get some code completion
 	
 	If ($watcher.isRunning())
-		// Do not start a 2nd worker. Instead, terminate worker thread 
+		// Do not start a 2nd SystemWorker. Instead, terminate worker thread 
 		// and (implicitly) its SystemWorker child.
 		$watcher.terminate()
 	Else 

@@ -41,23 +41,29 @@ Function _launchBackend()
 	var $config : cs:C1710.WatcherConfig
 	$config:=This:C1470._config
 	
-	// Run external program; async with callback strategy. Note: We must establish a
-	// shared reference to the created 4D.SystemWorker to be able to call it from
-	// anywhere else in the code.
-	Use (Storage:C1525)
-		Storage:C1525.watcherBackendSysWorker:=OB Copy:C1225(\
-			4D:C1709.SystemWorker.new($config.getBackend().path+\
-			" --watched-item="+$config.getWatchedDirPlatformPath()+\
-			" --throttle-secs="+String:C10($config.getThrottleSecs()); \
-			$config); \
-			ck shared:K85:29)
-	End use 
-	// $sysWorker.closeInput()
+	// Run external program; async with callback strategy.
+	// For some reason (memory layout?) we cannot use a class property here
+	// to hold a reference to the SystemWorker.
+	watcherBackendSysWorker:=4D:C1709.SystemWorker.new($config.getBackend().path+\
+		" --watched-item="+$config.getWatchedDirPlatformPath()+\
+		" --throttle-secs="+String:C10($config.getThrottleSecs()); \
+		$config)
+	
+	// Note: Do not .wait() here. Just let it run async.
 	
 	
 Function terminate()
-	This:C1470._terminateBackend()
-	KILL WORKER:C1390(This:C1470._WORKER_ID)
+/*
+Terminates worker thread togehter with backend app.
+	
+Warning! We must use a predefined $watcher variable here, being
+captured by Formula().
+Formula(This._terminateBackend.run()) will result in a RTE!
+*/
+	var $this : cs:C1710.Watcher
+	$this:=This:C1470
+	
+	CALL WORKER:C1389(This:C1470._WORKER_ID; Formula:C1597($this._terminateBackend()))
 	// Block and wait for termination.
 	While (This:C1470.isRunning())
 	End while 
@@ -65,15 +71,19 @@ Function terminate()
 	
 Function _terminateBackend()
 	var $sysWorker : 4D:C1709.SystemWorker
-	$sysWorker:=Storage:C1525.watcherBackendSysWorker
+	$sysWorker:=watcherBackendSysWorker
 	
 	If ($sysWorker#Null:C1517)
-		$sysWorker.terminate()
-		$sysWorker.wait(2)
-		Use (Storage:C1525)
-			Storage:C1525.watcherBackendSysWorker:=Null:C1517
-		End use 
+		// We could also use sysWorker.terminate() here, but the backend
+		// also reacts on sending "teardown" to its stdin stream to shut down
+		// gracefully.
+		$sysWorker.postMessage("teardown"+Char:C90(Line feed:K15:40))
+		$sysWorker.wait(5)
+		watcherBackendSysWorker:=Null:C1517
 	End if 
+	
+	// Terminate the sysWorker's wrapping 4D worker as well.
+	KILL WORKER:C1390(This:C1470._WORKER_ID)
 	
 	
 Function isRunning() : Boolean
