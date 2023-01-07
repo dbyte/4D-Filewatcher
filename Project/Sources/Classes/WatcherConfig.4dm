@@ -24,7 +24,7 @@ Class constructor()
 	// See also: https://doc4d.github.io/docs/19-R6/API/SystemWorkerClass
 	
 Function onResponse($worker : 4D.SystemWorker)
-	This._collect("--\tWatcher backend: messages closed\t--")
+	This._collect("--\tWatcher closed.\t--")
 	
 	
 Function onData($worker : 4D.SystemWorker; $info : Object)
@@ -40,7 +40,7 @@ Function onError($worker : 4D.SystemWorker; $info : Object)
 	
 	
 Function onTerminate($worker : 4D.SystemWorker)
-	This._collect("--\tWatcher backend: terminated\t--")
+	This._collect("--\tWatcher terminated.\t--")
 	
 	// mark: - Enriched settings builder
 	

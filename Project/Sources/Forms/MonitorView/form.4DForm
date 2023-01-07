@@ -27,7 +27,7 @@
 					"type": "listbox",
 					"left": 20,
 					"top": 60,
-					"width": 900,
+					"width": 1000,
 					"height": 500,
 					"events": [],
 					"listboxType": "collection",
@@ -68,8 +68,8 @@
 								"name": "Fußteil2"
 							},
 							"dataSource": "This:C1470.kind",
-							"width": 140,
-							"minWidth": 100,
+							"width": 180,
+							"minWidth": 180,
 							"maxWidth": 500
 						},
 						{
@@ -282,7 +282,7 @@
 		}
 	],
 	"memorizeGeometry": true,
-	"geometryStamp": 320,
+	"geometryStamp": 323,
 	"colorScheme": "dark",
 	"editor": {
 		"activeView": "View 1",

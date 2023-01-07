@@ -34,6 +34,7 @@ To get some infos about this command line app, just run it natively in your term
 -h or --help.
 
 We have implemented a cheap async stdin/stdout broker, so it is possible to communicate with the backend over
-stdin while it is asynchronously streaming file system events to stdout:
-You may, at any time, pass the literal string `teardown`, followed by a `newline` char, to its stdin to initiate a
-graceful shutdown, which provides additional feedback on stdout.
+stdin while it is asynchronously streaming file system events to stdout. You may, at any time, pass the following
+strings, **followed by a `newline` char**, to stdin:
+- `version`: Writes the SemVer of the backend to stdout
+- `teardown`: Initiates a graceful shutdown, which writes some additional feedback to stdout

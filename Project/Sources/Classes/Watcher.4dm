@@ -26,6 +26,11 @@ a RTE (as of 4Dv19.R6HF2).
 	While (Not(This.isRunning()))
 	End while 
 	
+	// TODO: Timing issue, we loose some callbacks at the next CALL WORKER command otherwise.
+	DELAY PROCESS(Current process; 1)
+	
+	CALL WORKER(This._WORKER_ID; Formula($this._requestBackendVersion()))
+	
 	
 Function _launchBackend()
 /* ----------------------------------------------------------------
@@ -46,7 +51,7 @@ on the same 4D process but async.
 	var $config : cs.WatcherConfig
 	$config:=This._config
 	
-	// Run external program; async with callback strategy.
+	// Launch backend; async with callback strategy.
 	// For some reason (memory layout?) we cannot use a class property here
 	// to hold a reference to the SystemWorker.
 	watcherBackendSysWorker:=4D.SystemWorker.new($config.getBackend().path+\
@@ -55,6 +60,19 @@ on the same 4D process but async.
 		$config)
 	
 	// Note: Do not .wait() at this point. Just let it run async.
+	
+	
+Function _requestBackendVersion()
+/* ----------------------------------------------------------------
+CALL WORKER target!
+Instructs backend to spit out some version info.
+---------------------------------------------------------------- */
+	var $sysWorker : 4D.SystemWorker
+	$sysWorker:=watcherBackendSysWorker
+	
+	If ($sysWorker#Null)
+		$sysWorker.postMessage("version"+Char(Line feed))
+	End if 
 	
 	
 Function terminate()
