@@ -1,3 +1,7 @@
+![owner](https://img.shields.io/badge/%C2%A9-knk%20Business%20Software%20AG-orange)
+![licence](https://img.shields.io/badge/license-MIT-brightgreen)
+![fourdVersion](https://img.shields.io/badge/4D%20compatibility-v19R6%2B-blue)
+
 # Introduction
 Filewatcher-4D is a proof of concept which demonstrates the interaction of `4D.SystemWorker`, the 4D statement
 `CALL WORKER` and a platform-native backend (developed with Rust, especially for 4D project structures, safe and
