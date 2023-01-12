@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="5">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="6">
 	<com.4d>
 		<compiler>
-			<options compilation_path="3" target="active"/>
+			<options compilation_path="3" target="all"/>
 			<method_suffix arrays="A" interprocess_arrays="IA" interprocess_variables="IP" methods="M" variables="P"/>
 		</compiler>
 	</com.4d>
