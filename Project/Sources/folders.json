@@ -4,6 +4,7 @@
 			"launch"
 		],
 		"classes": [
+			"Backend",
 			"Watcher",
 			"WatcherConfig"
 		]
