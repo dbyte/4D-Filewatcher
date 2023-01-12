@@ -5,20 +5,23 @@ Main method. Prepares and launches the monitor view controller and
 its view with some defaults.
 ---------------------------------------------------------------- */
 
-var $backendBinaryName : Text
-var $pathToBackend : 4D.File
-var $pathToWatchedDir : 4D.Folder
+// Do a clean "install"
+var $backend : cs.Backend
+$backend:=cs.Backend.new()
+$backend.validatePackage()
+$backend.uninstall()
+$backend.install()
+$backend.validateInstallation()
 
-$backendBinaryName:=Is Windows ? "filewatcher_backend.exe" : "filewatcher_backend"
+// Configure
+var $pathToWatchedDir : 4D.Folder
 $pathToWatchedDir:=Is Windows ? (Folder("C:"; fk platform path)) : (Folder("/"; fk posix path))
-$pathToBackend:=Folder(Convert path system to POSIX(Folder(fk resources folder).platformPath))\
-.folder("bin")\
-.file($backendBinaryName)
 
 var $config : cs.WatcherConfig
 $config:=cs.WatcherConfig.new()\
 .withWatchedDir($pathToWatchedDir)\
-.withBackend($pathToBackend)\
+.withBackend($backend.getPlatformBinary())\
 .withThrottleSecs(1)
 
+// Run
 cs.MonitorViewController.new($config).showView()

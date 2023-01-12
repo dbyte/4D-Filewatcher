@@ -13,6 +13,10 @@ temporary files/
 # macOS arm64 Libs
 Libraries/
 
+# Unpacked backend
+Resources/bin/filewatcher_backend.exe
+Resources/bin/filewatcher_backend
+
 # Test results Unit4D
 /**/UnitTests/results
 
