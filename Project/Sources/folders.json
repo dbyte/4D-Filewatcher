@@ -1,15 +1,17 @@
 {
 	"backend": {
-		"methods": [
-			"launch"
-		],
 		"classes": [
-			"Backend",
+			"BackendInstall",
+			"BackendInstallMac",
+			"BackendInstallWin",
 			"Watcher",
 			"WatcherConfig"
 		]
 	},
 	"frontend": {
+		"methods": [
+			"launch"
+		],
 		"forms": [
 			"MonitorView",
 			"SettingsView"
