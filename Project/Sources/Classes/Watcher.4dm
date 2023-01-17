@@ -80,10 +80,9 @@ Function terminate()
 Terminates worker process together with the backend application.
 Warning: We must use a predefined $this variable here, being
 captured by Formula().
-Formula(This._terminateBackend.run()) would otherwise lead to
+Formula(This._terminateBackend()) would otherwise lead to
 a RTE (as of 4Dv19.R6HF2).
 ---------------------------------------------------------------- */
-	
 	var $this : cs.Watcher
 	$this:=This
 	
