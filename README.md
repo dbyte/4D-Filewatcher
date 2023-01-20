@@ -12,6 +12,10 @@ Neither 4D plugins nor 4D components need to be used, nor any other runtimes or 
 It also demonstrates the possibility to run the above processes completely async, avoiding blocking
 views and the main loop, but still update relevant objects in your UI (or any other application context) live.
 
+## The main use case
+for the backend tool was to replace the 4D full text code-search with our own
+4D introspection component by introducing a _customizable_ full text search over our 4D code.
+
 ## Usage
 In 4D compiled mode, the app starts immediately with the "Monitor" view. In 4D interpreted mode, you'll have to run
 the project method `launch`. The monitoring of a selectable directory can be toggled via the Start/Stop button.
@@ -42,3 +46,25 @@ stdin while it is asynchronously streaming file system events to stdout. You may
 strings, **followed by a `newline` char**, to stdin:
 - `version`: Writes the SemVer of the backend to stdout
 - `teardown`: Initiates a graceful shutdown, which writes some additional feedback to stdout
+
+### Excluded files and directories (hard coded defaults)
+The following items are invisible for the backend watcher, using glob patterns. See
+https://en.wikipedia.org/wiki/Glob_(programming) for an explanation what globbing means in the context of OS paths.
+    
+    "*.git*"
+
+    // macOS Finder crap
+    "*.DS_Store"
+    
+    // IntelliJ creates a temp file before it modifies it
+    "*~"
+    
+    // 4D project stuff
+    "**/DerivedData/*"
+    "**/temporary files/*"
+    "**/userPreferences.*/*"
+    "**/Logs/*"
+    "*.4DD"
+    "*.4DIndx"
+    "*.Match"
+    "*.journal"
