@@ -18,6 +18,7 @@ Class constructor()
 	This._backend:=Null
 	This._watchedDir:=Null
 	This._throttleSecs:=1
+	This._quitOnDeadParentProc:=False
 	
 	// mark: - Callbacks
 	// The follwing methods have fixed callback signatures,
@@ -56,6 +57,11 @@ Function withBackend($pathToBinary : 4D.File) : cs.WatcherConfig
 	
 Function withThrottleSecs($seconds : Integer) : cs.WatcherConfig
 	This._throttleSecs:=$seconds
+	return This
+	
+	
+Function withQuitOnDeadParentProc($isSet : Boolean) : cs.WatcherConfig
+	This._quitOnDeadParentProc:=$isSet
 	return This
 	
 	// mark: - Helpers
@@ -103,4 +109,8 @@ Function getBackend() : 4D.File
 	
 Function getThrottleSecs() : Integer
 	return This._throttleSecs
+	
+	
+Function getQuitOnDeadParentProc() : Boolean
+	return This._quitOnDeadParentProc
 	

@@ -54,9 +54,10 @@ on the same 4D process but async.
 	// Launch backend; async with callback strategy.
 	// For some reason (memory layout?) we cannot use a class property here
 	// to hold a reference to the SystemWorker.
-	watcherBackendSysWorker:=4D.SystemWorker.new($config.getBackend().path+\
-		" --watched-item="+$config.getWatchedDirPlatformPath()+\
-		" --throttle-secs="+String($config.getThrottleSecs()); \
+	watcherBackendSysWorker:=4D.SystemWorker.new($config.getBackend().path+" "+\
+		"-w="+$config.getWatchedDirPlatformPath()+" "+\
+		"-t="+String($config.getThrottleSecs())+" "+\
+		($config.getQuitOnDeadParentProc() ? "-q" : ""); \
 		$config)
 	
 	// Note: Do not .wait() at this point. Just let it run async.

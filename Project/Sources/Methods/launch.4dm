@@ -21,7 +21,8 @@ var $config : cs.WatcherConfig
 $config:=cs.WatcherConfig.new()\
 .withWatchedDir($pathToWatchedDir)\
 .withBackend($backend.getBinary())\
-.withThrottleSecs(1)
+.withThrottleSecs(1)\
+.withQuitOnDeadParentProc(True)
 
 // Run main app
 cs.MonitorViewController.new($config).showView()
